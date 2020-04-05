@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+$header-height: 50px;
+$colors: #99FFCC, #CCCCFF, #CCFF99, #CCFFCC, #CCFFFF, #FFCC99, #FFCCFF, #FFFF99, #FFFFCC, #CCCC99, #fbafff, #FFCCCC;
+$box-shadow: 1px 1px 6px -5px rgba(0, 0, 0, 0.95);
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background: lighten(#282c34, 72);
+  line-height: 185%;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+header {
+  background-color: #282c34;
+  min-height: $header-height;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  text-align: left;
+  padding: 0 20px;
+  box-sizing: border-box;
+  box-shadow: $box-shadow;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  .title {
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+
+
+    img.logo {
+      display: inline-block;
+      width: auto;
+      height: 100%;
+      margin-right: 10px;
+    }
+  }
+
+}
+
+table {
+  margin: 120px auto;
+  width: 65%;
+  border-collapse: collapse;
+  thead {
+    background: white;
+    th {
+      padding: 12px 20px;
+    }
+  }
+  tr:nth-child(odd) td {
+    background: #f2f2f2;
+  }
+  tr:nth-child(even) td {
+    background: #fff;
+  }
+  td {
+    padding: 12px 20px;
+  }
+  td:nth-child(1) {
+    width: 40px;
+    text-align: center;
+  }
+  td:nth-child(2) {
+    text-align: left;
+  }
+  box-shadow: $box-shadow;
+  td .tagged-sentence {
+    margin: 8px 0px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 10px;
+    background: white;
+    &.unsure {
+      border: 2px solid lighten(#ff6161, 14);
+      background: #ffe3e3;
+    }
+    .author {
+      font-size: 14px;
+      color: #444;
+      margin-top: -10px;
+    }
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.label {
+  
+  box-sizing: border-box;
+  
+  display: inline-block;
+  vertical-align: top;
+
+  .label-text {
+    display: block;
+    padding: 0 12px;
+    text-align: center;
+
+  }
+  .label-name {
+    display: block;
+    font-size: 10px;
+    text-align: center;
+    opacity: 0.8;
+    line-height: 12px;
+    padding: 2px;
+    background: rgba( 0, 0, 0, 0.1);
+    font-weight: bold;
+    padding: 2px 12px;
+  }
+}
+
+// Apply the appropriate colours to each tag and jstree element.
+@for $i from 1 through 12 {
+  .label-#{$i} { 
+    background-color: nth($colors, $i); border-color: darken(nth($colors, $i), 9);
+    .label-name {
+      color: darken(nth($colors, $i), 70);
+    }
+  }
+}
+
+#controls {
+  width: 100%;
+  margin-top: 60px;
+  position: fixed;
+  top: 30px;
+  background: #fafafa;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 0;
+  font-size: 14px;
+  box-shadow: $box-shadow;
+  z-index: 1000;
+  .inner {
+    width: 65%;
+    margin: 0 auto;
+    text-align: left;
+    padding: 10px;
+    display: flex;
+  }
+  select {
+    margin-left: 20px;
+    font-family: "Open Sans", sans-serif;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+  .document-count-text {
+    text-align: center;
+    flex-align: top;
+  }
+  .left {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    max-width: 140px;
+  }
+  .center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -160px;
+    user-select: none;
+    pointer-events: none;
+  }
+  .control {
+    padding: 4px 8px;
+    box-sizing: border-box;
+    border: 2px solid rgba( 0, 0, 0, 0);
+    padding-right: 0;
+    cursor: pointer;
+
+    .fake-checkbox {
+      display: inline;
+      width: 16px;
+      height: 16px;
+      border: 1px solid #777;
+      margin-right: 6px;
+      border-radius: 2px;
+      position: relative;
+    }
+    &.checked {
+      border: 2px solid lighten(#ff6161, 14);
+      background: #ffe3e3;
+      border-radius: 3px;
+      .fake-checkbox {
+        background: white;
+      }
+      .fake-checkbox:after {
+        content: "\f00c";
+        font-family: FontAwesome;
+        position: absolute;
+        top: -6px;
+        left: 1px;
+        font-size: 13px;
+      }
+
+    } 
+  }
+  input[type="checkbox"] {
+
+  }
+}
