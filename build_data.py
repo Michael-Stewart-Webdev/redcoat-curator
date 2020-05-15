@@ -12,6 +12,7 @@ def calculate_agreement(row, label2idx):
 
 	for annotator in annotations:
 
+
 		annotation_list = ['*'] * len(tokens)
 		for m in annotations[annotator]:
 			start = m['start']
@@ -68,10 +69,12 @@ def calculate_agreement(row, label2idx):
 
 
 def main():
-	data = [ {} for x in range(500) ]
+	data = [ {} for x in range(1000) ]
 	label2idx = {}
 
 	for filename in os.listdir('data'):
+		if not filename.endswith('.json'):
+			continue
 		with jsonlines.open('data/' + filename, 'r') as reader:
 			for obj in reader:
 				doc_idx = obj['doc_idx']
@@ -94,8 +97,13 @@ def main():
 
 
 	
+	data = [row for row in data if row != {}]
+
+	total_agreement = 0
 	for row in data:
-		row['agreement'] = calculate_agreement(row, label2idx)
+		agreement = calculate_agreement(row, label2idx)
+		row['agreement'] = agreement
+		total_agreement += agreement
 
 		row['hasUnsureLabel'] = False
 		for annotator in row['annotations']:
@@ -103,6 +111,15 @@ def main():
 				for l in m['labels']:
 					if l == "Unsure":
 						row['hasUnsureLabel'] = True
+
+
+	#avg_agreement = total_agreement / len(data)
+
+	# Just for our dataset...
+	#total_agreement += 500-369
+	avg_agreement = total_agreement / len(data)
+
+	print("Average agreement: %.2f" % avg_agreement)
 
 	sorted_data = sorted(data, key=lambda d: d['agreement'])
 	with codecs.open('src/processed_data/data.json', 'w', 'utf-8') as f:
